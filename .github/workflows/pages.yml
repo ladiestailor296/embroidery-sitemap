@@ -3,10 +3,10 @@ name: Deploy GitHub Pages
 on:
   push:
     branches:
-      - main  # aapki branch ka naam agar 'main' hai
+      - main  # aapki branch agar 'main' hai
 
 jobs:
-  build-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,8 +18,18 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .  # root folder se files serve hongi
+          path: .   # root folder (index.html yahan hona chahiye)
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
