@@ -1,1 +1,1 @@
-// JS Placeholder
+// Basic JS
