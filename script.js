@@ -1,1 +1,1 @@
-// Basic JS
+console.log('Website loaded');
